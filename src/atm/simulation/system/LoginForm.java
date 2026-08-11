@@ -10,11 +10,20 @@ import javax.swing.JOptionPane;
  * @author User
  */
 public class LoginForm extends javax.swing.JFrame {
+   private javax.swing.Timer titleTimer;
+   private int titleX;
+   private javax.swing.Timer subtitleTimer;
+   private int subtitleX;
+   
+   
+   private javax.swing.Timer shakeTimer;
+   private int shakeCount = 0;
+   private int originalX;
+   
    private FileManager fileManager = new FileManager();
    private Account account;
    private int loginAttempts = 0;
-   private javax.swing.Timer titleTimer;
-   private int titleX;
+
     /**
      * Creates new form LoginForm
      */
@@ -24,6 +33,9 @@ public class LoginForm extends javax.swing.JFrame {
          setLocationRelativeTo(null);
          
          setResizable(false);
+         
+             startTitleAnimation();
+              startSubtitleAnimation();
         
         
          
@@ -34,6 +46,118 @@ public class LoginForm extends javax.swing.JFrame {
         account = new Account("1001", "Saikat", 1234, 5000);
     }
    }
+    
+    private void startSubtitleAnimation() {
+
+    subtitleX = getWidth();
+
+    subtitleTimer = new javax.swing.Timer(30, new java.awt.event.ActionListener() {
+
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+
+            subtitleX -= 2;
+
+            lbl.setLocation(
+                    subtitleX,
+                    lbl.getY()
+            );
+
+            // Left side দিয়ে বের হয়ে গেলে আবার right side থেকে আসবে
+            if (subtitleX + lbl.getWidth() < 0) {
+
+                subtitleX = getWidth();
+            }
+        }
+    });
+
+    subtitleTimer.start();
+}
+    
+    
+    
+private void startTitleAnimation() {
+
+    final int finalTitleX = lblTitle.getX();
+    final int finalIconX = lblIcon.getX();
+
+    final int titleY = lblTitle.getY();
+    final int iconY = lblIcon.getY();
+
+    titleX = getWidth();
+
+    titleTimer = new javax.swing.Timer(10, new java.awt.event.ActionListener() {
+
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+
+            titleX -= 5;
+
+            int difference = finalTitleX - titleX;
+
+            lblTitle.setLocation(
+                    titleX,
+                    titleY
+            );
+
+            lblIcon.setLocation(
+                    finalIconX + difference,
+                    iconY
+            );
+
+            if (titleX <= finalTitleX) {
+
+                lblTitle.setLocation(
+                        finalTitleX,
+                        titleY
+                );
+
+                lblIcon.setLocation(
+                        finalIconX,
+                        iconY
+                );
+
+                titleTimer.stop();
+            }
+        }
+    });
+
+    titleTimer.start();
+}
+
+private void shakeLoginPanel() {
+
+    originalX = pnlLogin.getX();
+    shakeCount = 0;
+
+    shakeTimer = new javax.swing.Timer(50, new java.awt.event.ActionListener() {
+
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+
+            int offset;
+
+            if (shakeCount % 2 == 0) {
+                offset = 10;
+            } else {
+                offset = -10;
+            }
+
+            pnlLogin.setLocation(originalX + offset, pnlLogin.getY());
+
+            shakeCount++;
+
+            if (shakeCount >= 8) {
+
+                pnlLogin.setLocation(originalX, pnlLogin.getY());
+
+                shakeTimer.stop();
+            }
+        }
+    });
+
+    shakeTimer.start();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,18 +178,24 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lbl = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lblIcon = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitle.setText("DIGITAL ATM");
 
+        pnlLogin.setBackground(new java.awt.Color(153, 153, 153));
+
         jLabel2.setText("Account No    :");
 
-        jLabel3.setText("PIN                :");
+        jLabel3.setText("PIN                 :");
 
         txtAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,91 +262,91 @@ public class LoginForm extends javax.swing.JFrame {
         pnlLoginLayout.setHorizontalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-            .addGroup(pnlLoginLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
-                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlLoginLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlLoginLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32))
-            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlLoginLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(202, Short.MAX_VALUE)))
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlLoginLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(30, 30, 30)
-                    .addComponent(jLabel3)
-                    .addContainerGap(108, Short.MAX_VALUE)))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Secure Banking System");
+        lbl.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbl.setText("Secure Banking System");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N
+        lblIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N
+
+        lblStatus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblIcon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl)
+                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 31, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitle)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addContainerGap(242, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(82, 82, 82)
-                    .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(lbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,9 +354,8 @@ public class LoginForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,42 +385,138 @@ public class LoginForm extends javax.swing.JFrame {
 
 
  String accNo = txtAccount.getText();
-String pin = String.valueOf(txtPin.getPassword());
+    String pin = String.valueOf(txtPin.getPassword());
 
+    // Check empty fields
+    if (accNo.isEmpty() || pin.isEmpty()) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Please enter Account Number and PIN.",
+                "Login Required",
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        return;
+    }
+
+    try {
+
+        // ===== LOGIN SUCCESS =====
 if (accNo.equals(account.getAccountNumber())
         && Integer.parseInt(pin) == account.getPin()) {
 
-    ATM atm = new ATM(account);
+    lblStatus.setText("Authenticating...");
 
-    DashboardForm dashboard = new DashboardForm(atm, account, fileManager);
-    dashboard.setVisible(true);
+    javax.swing.Timer timer =
+            new javax.swing.Timer(1000, e -> {
 
-    this.dispose();
+       lblStatus.setForeground(new java.awt.Color(0, 150, 0));
+lblStatus.setFont(
+    new java.awt.Font("Arial", java.awt.Font.BOLD, 15)
+);
+lblStatus.setText("LOGIN SUCCESSFUL");
 
-} else {
+        javax.swing.Timer openTimer =
+                new javax.swing.Timer(700, e2 -> {
 
-    loginAttempts++;
-    
-     txtAccount.setText("");
-    txtPin.setText("");
-    txtAccount.requestFocus();
+            ATM atm = new ATM(account);
 
-    if (loginAttempts >= 3) {
+            DashboardForm dashboard =
+                    new DashboardForm(
+                            atm,
+                            account,
+                            fileManager
+                    );
 
-        JOptionPane.showMessageDialog(this,
-                "Your card has been locked.\nToo many incorrect PIN attempts.");
+            dashboard.setVisible(true);
 
-        System.exit(0);
+            this.dispose();
 
-    } else {
+        });
 
-        JOptionPane.showMessageDialog(this,
-                "Invalid Account Number or PIN.\nAttempts Left: "
-                        + (3 - loginAttempts));
+        openTimer.setRepeats(false);
+        openTimer.start();
+    });
 
+    timer.setRepeats(false);
+    timer.start();
+
+   } 
+        else {
+
+            // ===== WRONG LOGIN =====
+            shakeLoginPanel();
+
+            loginAttempts++;
+
+            txtAccount.setText("");
+            txtPin.setText("");
+            txtAccount.requestFocus();
+
+            // ===== 3 TIMES WRONG =====
+            if (loginAttempts >= 3) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Your card has been locked.\n"
+                        + "Too many incorrect PIN attempts.",
+                        "Card Locked",
+                        JOptionPane.ERROR_MESSAGE
+                );
+
+                System.exit(0);
+
+            } else {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Invalid Account Number or PIN.\n"
+                        + "Attempts Left: "
+                        + (3 - loginAttempts),
+                        "Login Failed",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+
+    } catch (NumberFormatException e) {
+
+        // ===== PIN IS NOT A NUMBER =====
+        shakeLoginPanel();
+
+        loginAttempts++;
+
+        txtAccount.setText("");
+        txtPin.setText("");
+        txtAccount.requestFocus();
+
+        if (loginAttempts >= 3) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Your card has been locked.\n"
+                    + "Too many incorrect PIN attempts.",
+                    "Card Locked",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            System.exit(0);
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "PIN must contain numbers only.\n"
+                    + "Attempts Left: "
+                    + (3 - loginAttempts),
+                    "Invalid PIN",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 
-}
+
 
 
 
@@ -323,32 +548,51 @@ if (accNo.equals(account.getAccountNumber())
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
         // TODO add your handling code here:
-        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+     
+       btnLogin.setBackground(new java.awt.Color(0, 180, 0));
+       btnLogin.setForeground(java.awt.Color.WHITE);
+       btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
         // TODO add your handling code here:
-        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+       
+    btnLogin.setBackground(new java.awt.Color(0, 255, 0));
+    btnLogin.setForeground(java.awt.Color.BLACK);
+    btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
     }//GEN-LAST:event_btnLoginMouseExited
 
     private void btnClearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseEntered
         // TODO add your handling code here:
-        btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    
+    btnClear.setBackground(new java.awt.Color(255, 200, 0));
+    btnClear.setForeground(java.awt.Color.WHITE);
+    btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
     }//GEN-LAST:event_btnClearMouseEntered
 
     private void btnClearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseExited
         // TODO add your handling code here:
-        btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnClear.setBackground(java.awt.Color.YELLOW);
+    btnClear.setForeground(java.awt.Color.BLACK);
+    btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
     }//GEN-LAST:event_btnClearMouseExited
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         // TODO add your handling code here:
-        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+           btnExit.setBackground(new java.awt.Color(180, 0, 0));
+    btnExit.setForeground(java.awt.Color.WHITE);
+    btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
         // TODO add your handling code here:
-        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+      btnExit.setBackground(java.awt.Color.RED);
+    btnExit.setForeground(java.awt.Color.WHITE);
+    btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnExitMouseExited
 
     /**
@@ -392,9 +636,11 @@ if (accNo.equals(account.getAccountNumber())
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl;
+    private javax.swing.JLabel lblIcon;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JTextField txtAccount;
