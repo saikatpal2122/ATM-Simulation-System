@@ -18,29 +18,20 @@ public class Transaction {
 
     String dateTime = now.format(formatter);
 
-    String record;
+    String record = "ID     : " + transactionId +
+                               " \nType     : " + type;
 
-    if (amount == 0) {
+    if (amount > 0) {
 
-        record = "Transaction ID : " + transactionId
-                + "\nType           : " + type
-                + "\nDate & Time    : " + dateTime
-                + "\n--------------------------------";
-
-    } else {
-
-        record = "Transaction ID : " + transactionId
-                + "\nType           : " + type
-                + "\nAmount         : " + amount
-                + "\nDate & Time    : " + dateTime
-                + "\n--------------------------------";
-
-    }
-
-    history.add(record);
-    transactionId++;
-
+        record += "\nAmount   : + amount";
 }
+   
+        record += "\nDate    : " + dateTime +
+                  "\n--------------------";
+
+history.add(record);
+transactionId++;
+} 
 
     public void showHistory() {
 
