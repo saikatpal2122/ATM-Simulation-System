@@ -30,33 +30,82 @@ private FileManager fileManager;
     setLocationRelativeTo(null);
     setResizable(false);
     
-    
-   
-   
     }
+    private void showLoading() {
+
+    lblLoading.setText("Loading...");
+    lblLoading.setVisible(true);
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+
+        lblLoading.setText("");
+        lblLoading.setVisible(false);
+
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+}
     
     private void fastCashWithdraw(double amount) {
 
-    if (amount > account.getBalance()) {
-        JOptionPane.showMessageDialog(this, "Insufficient Balance!");
+    // Minimum withdrawal
+    if (amount < 500) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Minimum withdrawal amount is Tk 500."
+        );
+
         return;
     }
 
+    // Maximum withdrawal
+    if (amount > 20000) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Maximum withdrawal amount is Tk 20,000."
+        );
+
+        return;
+    }
+
+    // Balance check
+    if (amount > account.getBalance()) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Insufficient Balance!"
+        );
+
+        return;
+    }
+
+    // Withdraw money
     atm.withdraw(amount);
 
+    // Save updated account
     fileManager.saveAccount(account);
-    
+
+    // Save transaction history
     DateTimeFormatter dtf =
-        DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+            DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
 
-String history =
-        dtf.format(LocalDateTime.now())
-        + "   Fast Cash   ৳" + amount + "\n";
+    String history =
+            dtf.format(LocalDateTime.now())
+            + "   Fast Cash   Tk " + amount + "\n";
 
-fileManager.saveHistory(history);
+    fileManager.saveHistory(history);
 
-    JOptionPane.showMessageDialog(this,
-            "Please collect your cash.\nAmount: " + amount);
+    JOptionPane.showMessageDialog(
+        this,
+        "TRANSACTION SUCCESSFUL\n\n"
+        + "Please collect your cash.\n\n"
+        + "Amount: Tk " + amount,
+        "ATM - Transaction Successful",
+        JOptionPane.INFORMATION_MESSAGE
+);
 }
     
     
@@ -71,20 +120,39 @@ fileManager.saveHistory(history);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btn500 = new javax.swing.JButton();
         btn1000 = new javax.swing.JButton();
-        btn2000 = new javax.swing.JButton();
+        btn10000 = new javax.swing.JButton();
         btn5000 = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btn2000 = new javax.swing.JButton();
+        btn20000 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblLoading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setText("Fast Cash");
 
         btn500.setBackground(new java.awt.Color(204, 255, 204));
-        btn500.setText("500");
+        btn500.setText("500 TK");
+        btn500.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn500MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn500MouseExited(evt);
+            }
+        });
         btn500.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn500ActionPerformed(evt);
@@ -92,23 +160,47 @@ fileManager.saveHistory(history);
         });
 
         btn1000.setBackground(new java.awt.Color(204, 255, 204));
-        btn1000.setText("1000");
+        btn1000.setText("1000 TK");
+        btn1000.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn1000MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn1000MouseExited(evt);
+            }
+        });
         btn1000.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1000ActionPerformed(evt);
             }
         });
 
-        btn2000.setBackground(new java.awt.Color(204, 255, 204));
-        btn2000.setText("2000");
-        btn2000.addActionListener(new java.awt.event.ActionListener() {
+        btn10000.setBackground(new java.awt.Color(204, 255, 204));
+        btn10000.setText("10000 TK");
+        btn10000.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn10000MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn10000MouseExited(evt);
+            }
+        });
+        btn10000.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2000ActionPerformed(evt);
+                btn10000ActionPerformed(evt);
             }
         });
 
         btn5000.setBackground(new java.awt.Color(204, 255, 204));
-        btn5000.setText("5000");
+        btn5000.setText("5000 TK");
+        btn5000.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn5000MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn5000MouseExited(evt);
+            }
+        });
         btn5000.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5000ActionPerformed(evt);
@@ -117,51 +209,163 @@ fileManager.saveHistory(history);
 
         btnBack.setBackground(new java.awt.Color(255, 0, 0));
         btnBack.setText("Back");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBackMouseExited(evt);
+            }
+        });
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
 
+        btn2000.setText("2000 TK");
+        btn2000.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn2000MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn2000MouseExited(evt);
+            }
+        });
+        btn2000.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2000ActionPerformed(evt);
+            }
+        });
+
+        btn20000.setText("20000 TK");
+        btn20000.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn20000MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn20000MouseExited(evt);
+            }
+        });
+        btn20000.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn20000ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn500, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn2000, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn10000))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn1000, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn5000, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn20000, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn1000)
+                    .addComponent(btn500))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn5000)
+                    .addComponent(btn2000))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn20000)
+                    .addComponent(btn10000))
+                .addGap(18, 18, 18)
+                .addComponent(btnBack)
+                .addGap(25, 25, 25))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel2.setText("DIGITAL ATM");
+
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel3.setText("Secure Banking System");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(24, 24, 24))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3))
+        );
+
+        lblLoading.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn500, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn2000, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn1000, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                            .addComponent(btn5000, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn500)
-                    .addComponent(btn1000))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn2000)
-                    .addComponent(btn5000))
-                .addGap(31, 31, 31)
-                .addComponent(btnBack)
-                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -169,25 +373,60 @@ fileManager.saveHistory(history);
 
     private void btn500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn500ActionPerformed
         // TODO add your handling code here:
-      fastCashWithdraw(500);
+
+          showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        fastCashWithdraw(500);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
 
     
     }//GEN-LAST:event_btn500ActionPerformed
 
     private void btn1000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1000ActionPerformed
         // TODO add your handling code here:
-    fastCashWithdraw(1000);
+       
+   
+      showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        fastCashWithdraw(1000);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
     }//GEN-LAST:event_btn1000ActionPerformed
 
-    private void btn2000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2000ActionPerformed
+    private void btn10000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10000ActionPerformed
         // TODO add your handling code here:
-     fastCashWithdraw(2000);
-    }//GEN-LAST:event_btn2000ActionPerformed
+     
+     
+    
+    showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        fastCashWithdraw(10000);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+    }//GEN-LAST:event_btn10000ActionPerformed
 
     private void btn5000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5000ActionPerformed
         // TODO add your handling code here:
     
-    fastCashWithdraw(5000);
+    
+     showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        fastCashWithdraw(5000);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
     }//GEN-LAST:event_btn5000ActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -198,6 +437,124 @@ fileManager.saveHistory(history);
 
     this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btn2000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2000ActionPerformed
+        // TODO add your handling code here:
+        
+            showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        fastCashWithdraw(2000);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+    }//GEN-LAST:event_btn2000ActionPerformed
+
+    private void btn20000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn20000ActionPerformed
+        // TODO add your handling code here:
+         
+          showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        fastCashWithdraw(20000);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+    }//GEN-LAST:event_btn20000ActionPerformed
+
+    private void btn500MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn500MouseEntered
+        // TODO add your handling code here:
+          btn500.setBackground(new java.awt.Color(0, 180, 100));
+          btn500.setForeground(java.awt.Color.WHITE);
+          btn500.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btn500MouseEntered
+
+    private void btn500MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn500MouseExited
+        // TODO add your handling code here:
+          btn500.setBackground(new java.awt.Color(204, 255, 204));
+    btn500.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btn500MouseExited
+
+    private void btn1000MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn1000MouseEntered
+        // TODO add your handling code here:
+        btn1000.setBackground(new java.awt.Color(0, 180, 100));
+    btn1000.setForeground(java.awt.Color.WHITE);
+    btn1000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btn1000MouseEntered
+
+    private void btn1000MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn1000MouseExited
+        // TODO add your handling code here:
+         btn1000.setBackground(new java.awt.Color(204, 255, 204));
+    btn1000.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btn1000MouseExited
+
+    private void btn2000MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn2000MouseEntered
+        // TODO add your handling code here:
+        btn2000.setBackground(new java.awt.Color(0, 180, 100));
+    btn2000.setForeground(java.awt.Color.WHITE);
+    btn2000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btn2000MouseEntered
+
+    private void btn2000MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn2000MouseExited
+        // TODO add your handling code here:
+        btn2000.setBackground(new java.awt.Color(204, 255, 204));
+    btn2000.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btn2000MouseExited
+
+    private void btn5000MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn5000MouseEntered
+        // TODO add your handling code here:
+        btn5000.setBackground(new java.awt.Color(0, 180, 100));
+    btn5000.setForeground(java.awt.Color.WHITE);
+    btn5000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btn5000MouseEntered
+
+    private void btn5000MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn5000MouseExited
+        // TODO add your handling code here:
+         btn5000.setBackground(new java.awt.Color(204, 255, 204));
+    btn5000.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btn5000MouseExited
+
+    private void btn10000MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn10000MouseEntered
+        // TODO add your handling code here:
+        btn10000.setBackground(new java.awt.Color(0, 180, 100));
+    btn10000.setForeground(java.awt.Color.WHITE);
+    btn10000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btn10000MouseEntered
+
+    private void btn10000MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn10000MouseExited
+        // TODO add your handling code here:
+         btn10000.setBackground(new java.awt.Color(204, 255, 204));
+    btn10000.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btn10000MouseExited
+
+    private void btn20000MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn20000MouseEntered
+        // TODO add your handling code here:
+         btn20000.setBackground(new java.awt.Color(0, 180, 100));
+    btn20000.setForeground(java.awt.Color.WHITE);
+    btn20000.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btn20000MouseEntered
+
+    private void btn20000MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn20000MouseExited
+        // TODO add your handling code here:
+         btn20000.setBackground(new java.awt.Color(204, 255, 204));
+    btn20000.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btn20000MouseExited
+
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+        // TODO add your handling code here:
+            btnBack.setBackground(new java.awt.Color(180, 0, 0));
+    btnBack.setForeground(java.awt.Color.WHITE);
+    btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+    }//GEN-LAST:event_btnBackMouseEntered
+
+    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
+        // TODO add your handling code here:
+         btnBack.setBackground(new java.awt.Color(255, 0, 0));
+    btnBack.setForeground(java.awt.Color.WHITE);
+    }//GEN-LAST:event_btnBackMouseExited
 
     /**
      * @param args the command line arguments
@@ -233,17 +590,25 @@ fileManager.saveHistory(history);
         ATM atm = new ATM(account);
         FileManager fileManager = new FileManager();
 
-        new BalanceForm(atm, account, fileManager).setVisible(true);
+        new FastCashForm(atm, account, fileManager).setVisible(true);
     }
   });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1000;
+    private javax.swing.JButton btn10000;
     private javax.swing.JButton btn2000;
+    private javax.swing.JButton btn20000;
     private javax.swing.JButton btn500;
     private javax.swing.JButton btn5000;
     private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblLoading;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,7 +24,7 @@ public class DashboardForm extends javax.swing.JFrame {
     private ATM atm;
     private Account account;
     private FileManager fileManager;
-    
+  
     /**
      * Creates new form Dashboard
      */
@@ -40,16 +40,36 @@ public class DashboardForm extends javax.swing.JFrame {
         showDate();
         showTime();
         
+        
+        
         lblBalance.setText(
         "Tk " + String.format("%.2f", account.getBalance())
-);
+     );
+  
+   }
+    
+    private void showLoading() {
+
+    lblLoading.setText("Loading...");
+
+    lblLoading.setVisible(true);
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+        lblLoading.setText("");
+        lblLoading.setVisible(false);
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+}
+    
+ 
    
-    }
-         private void showDate() {
+     private void showDate() {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    lblDate.setText(sdf.format(new Date()));
+        lblDate.setText(sdf.format(new Date()));
 
 }
          
@@ -83,14 +103,14 @@ public class DashboardForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        pnlButtons = new javax.swing.JPanel();
         btnDeposit = new javax.swing.JButton();
         btnWithdraw = new javax.swing.JButton();
         btnCheckBalance = new javax.swing.JButton();
-        btnFasrCash = new javax.swing.JButton();
-        btnChangePIN = new javax.swing.JButton();
+        btnFastCash = new javax.swing.JButton();
+        btnChangePin = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        btnTransactionHistori = new javax.swing.JButton();
+        btnTransactionHistory = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblATMTitle = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
@@ -100,18 +120,22 @@ public class DashboardForm extends javax.swing.JFrame {
         pnlBalance = new javax.swing.JPanel();
         lblBalanceTitle = new javax.swing.JLabel();
         lblBalance = new javax.swing.JLabel();
+        lblLoading = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        pnlButtons.setBackground(new java.awt.Color(102, 102, 102));
 
-        btnDeposit.setBackground(new java.awt.Color(102, 255, 153));
+        btnDeposit.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-deposit-20.png")); // NOI18N
         btnDeposit.setText("Deposit");
         btnDeposit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnDepositMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDepositMouseExited(evt);
             }
         });
         btnDeposit.addActionListener(new java.awt.event.ActionListener() {
@@ -120,95 +144,137 @@ public class DashboardForm extends javax.swing.JFrame {
             }
         });
 
-        btnWithdraw.setBackground(new java.awt.Color(102, 255, 153));
+        btnWithdraw.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-money-bag-20.png")); // NOI18N
         btnWithdraw.setText("Withdraw");
+        btnWithdraw.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnWithdrawMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnWithdrawMouseExited(evt);
+            }
+        });
         btnWithdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnWithdrawActionPerformed(evt);
             }
         });
 
-        btnCheckBalance.setBackground(new java.awt.Color(102, 255, 153));
+        btnCheckBalance.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-check-dollar-20.png")); // NOI18N
         btnCheckBalance.setText("Check Balance");
+        btnCheckBalance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCheckBalanceMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCheckBalanceMouseExited(evt);
+            }
+        });
         btnCheckBalance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckBalanceActionPerformed(evt);
             }
         });
 
-        btnFasrCash.setBackground(new java.awt.Color(102, 255, 153));
-        btnFasrCash.setText("Fast Cash");
-        btnFasrCash.addActionListener(new java.awt.event.ActionListener() {
+        btnFastCash.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-flash-20.png")); // NOI18N
+        btnFastCash.setText("Fast Cash");
+        btnFastCash.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFastCashMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFastCashMouseExited(evt);
+            }
+        });
+        btnFastCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFasrCashActionPerformed(evt);
+                btnFastCashActionPerformed(evt);
             }
         });
 
-        btnChangePIN.setBackground(new java.awt.Color(102, 255, 153));
-        btnChangePIN.setText("Change PIN");
-        btnChangePIN.addActionListener(new java.awt.event.ActionListener() {
+        btnChangePin.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-change-20.png")); // NOI18N
+        btnChangePin.setText("Change PIN");
+        btnChangePin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnChangePinMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnChangePinMouseExited(evt);
+            }
+        });
+        btnChangePin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangePINActionPerformed(evt);
+                btnChangePinActionPerformed(evt);
             }
         });
 
-        btnExit.setBackground(new java.awt.Color(255, 0, 0));
+        btnExit.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-logout-20.png")); // NOI18N
         btnExit.setText("Exit");
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExitMouseExited(evt);
+            }
+        });
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
             }
         });
 
-        btnTransactionHistori.setBackground(new java.awt.Color(102, 255, 153));
-        btnTransactionHistori.setText("Transaction History");
-        btnTransactionHistori.addActionListener(new java.awt.event.ActionListener() {
+        btnTransactionHistory.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-history-folder-20.png")); // NOI18N
+        btnTransactionHistory.setText("Transaction History");
+        btnTransactionHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTransactionHistoryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTransactionHistoryMouseExited(evt);
+            }
+        });
+        btnTransactionHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTransactionHistoriActionPerformed(evt);
+                btnTransactionHistoryActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnTransactionHistori)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChangePIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFasrCash, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnWithdraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCheckBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
+        pnlButtons.setLayout(pnlButtonsLayout);
+        pnlButtonsLayout.setHorizontalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnDeposit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTransactionHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(btnFastCash, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnChangePin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCheckBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                    .addComponent(btnWithdraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlButtonsLayout.setVerticalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnWithdraw, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFasrCash, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCheckBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTransactionHistori, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChangePIN, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnWithdraw, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeposit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCheckBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFastCash, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTransactionHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChangePin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -217,15 +283,19 @@ public class DashboardForm extends javax.swing.JFrame {
 
         lblATMTitle.setBackground(new java.awt.Color(204, 204, 204));
         lblATMTitle.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblATMTitle.setForeground(new java.awt.Color(0, 102, 102));
         lblATMTitle.setText("DIGITAL ATM");
 
+        lblDate.setForeground(new java.awt.Color(255, 0, 0));
         lblDate.setText("Date");
 
+        lblTime.setForeground(new java.awt.Color(204, 0, 0));
         lblTime.setText("Time");
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N
 
         lblSubtitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSubtitle.setForeground(new java.awt.Color(0, 102, 102));
         lblSubtitle.setText("Secure Banking System");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -242,19 +312,13 @@ public class DashboardForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblSubtitle)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                    .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(lblDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTime)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,25 +327,35 @@ public class DashboardForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSubtitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(lblDate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTime)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        pnlBalance.setBackground(new java.awt.Color(204, 204, 204));
+        pnlBalance.setBackground(new java.awt.Color(153, 153, 153));
 
         lblBalanceTitle.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblBalanceTitle.setForeground(new java.awt.Color(0, 0, 255));
         lblBalanceTitle.setText("CURRENT BALANCE");
+
+        lblBalance.setBackground(new java.awt.Color(204, 204, 204));
+        lblBalance.setForeground(new java.awt.Color(0, 0, 255));
 
         javax.swing.GroupLayout pnlBalanceLayout = new javax.swing.GroupLayout(pnlBalance);
         pnlBalance.setLayout(pnlBalanceLayout);
         pnlBalanceLayout.setHorizontalGroup(
             pnlBalanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBalanceLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(lblBalanceTitle)
-                .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBalanceLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(lblBalanceTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addGroup(pnlBalanceLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
                 .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlBalanceLayout.setVerticalGroup(
             pnlBalanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,6 +366,9 @@ public class DashboardForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        lblLoading.setBackground(new java.awt.Color(255, 255, 255));
+        lblLoading.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -299,15 +376,19 @@ public class DashboardForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                        .addGap(131, 131, 131)
                         .addComponent(pnlBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)
+                        .addComponent(pnlButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(157, 157, 157))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,8 +398,10 @@ public class DashboardForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(pnlButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLoading, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -326,55 +409,113 @@ public class DashboardForm extends javax.swing.JFrame {
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
         // TODO add your handling code here:
-        DepositForm deposit = new DepositForm(atm, account, fileManager);
+         showLoading();
 
-      deposit.setVisible(true);
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
 
-this.dispose();
+        DepositForm deposit =
+                new DepositForm(atm, account, fileManager);
+
+        deposit.setVisible(true);
+
+        this.dispose();
+    });
+
+    timer.setRepeats(false);
+    timer.start();
     }//GEN-LAST:event_btnDepositActionPerformed
 
     private void btnCheckBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckBalanceActionPerformed
         // TODO add your handling code here:
-         BalanceForm balance = new BalanceForm(atm, account, fileManager);
-    balance.setVisible(true);
-    this.dispose();
+          showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+
+        BalanceForm balance =
+                new BalanceForm(atm, account, fileManager);
+
+        balance.setVisible(true);
+        this.dispose();
+    });
+
+    timer.setRepeats(false);
+    timer.start();
 
     }//GEN-LAST:event_btnCheckBalanceActionPerformed
 
     private void btnWithdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWithdrawActionPerformed
         // TODO add your handling code here:
-        WithdrawForm withdraw = new WithdrawForm(atm, account, fileManager);
+        showLoading();
+
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+
+        WithdrawForm withdraw =
+                new WithdrawForm(atm, account, fileManager);
+
         withdraw.setVisible(true);
         this.dispose();
+    });
+
+    timer.setRepeats(false);
+    timer.start();
         
     }//GEN-LAST:event_btnWithdrawActionPerformed
 
-    private void btnChangePINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePINActionPerformed
+    private void btnChangePinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePinActionPerformed
         // TODO add your handling code here:
-          ChangePINForm changePin = new ChangePINForm(atm, account, fileManager);
-    changePin.setVisible(true);
-    this.dispose();
-    }//GEN-LAST:event_btnChangePINActionPerformed
+          showLoading();
 
-    private void btnFasrCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFasrCashActionPerformed
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+
+        ChangePINForm pin =
+                new ChangePINForm(atm, account, fileManager);
+
+        pin.setVisible(true);
+        this.dispose();
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+    }//GEN-LAST:event_btnChangePinActionPerformed
+
+    private void btnFastCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFastCashActionPerformed
         // TODO add your handling code here:
-        FastCashForm fastCash = new FastCashForm(atm, account, fileManager);
+        showLoading();
 
-    fastCash.setVisible(true);
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
 
-    this.dispose();
+        FastCashForm fastCash =
+                new FastCashForm(atm, account, fileManager);
 
-    }//GEN-LAST:event_btnFasrCashActionPerformed
+        fastCash.setVisible(true);
 
-    private void btnTransactionHistoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransactionHistoriActionPerformed
+        this.dispose();
+    });
+
+    timer.setRepeats(false);
+    timer.start();
+
+    }//GEN-LAST:event_btnFastCashActionPerformed
+
+    private void btnTransactionHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransactionHistoryActionPerformed
         // TODO add your handling code here:
-         TransactionHistoryForm history =
-               new TransactionHistoryForm(atm, account, fileManager);
+         
+    showLoading();
 
-    history.setVisible(true);
+    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+
+        TransactionHistoryForm history =
+                new TransactionHistoryForm(atm, account, fileManager);
+
+        history.setVisible(true);
+        this.dispose();
+    });
+
+    timer.setRepeats(false);
+    timer.start();
 
     this.dispose();
-    }//GEN-LAST:event_btnTransactionHistoriActionPerformed
+    }//GEN-LAST:event_btnTransactionHistoryActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
@@ -391,8 +532,135 @@ this.dispose();
 
     private void btnDepositMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepositMouseEntered
         // TODO add your handling code here:
+       btnDeposit.setBackground(new java.awt.Color(0, 255, 0));
+    btnDeposit.setForeground(java.awt.Color.WHITE);
+
+    btnDeposit.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
         
     }//GEN-LAST:event_btnDepositMouseEntered
+
+    private void btnDepositMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepositMouseExited
+        // TODO add your handling code here:
+           btnDeposit.setBackground(new java.awt.Color(240, 240, 240));
+    btnDeposit.setForeground(java.awt.Color.BLACK);
+
+    btnDeposit.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR)
+    );
+    }//GEN-LAST:event_btnDepositMouseExited
+
+    private void btnWithdrawMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnWithdrawMouseEntered
+        // TODO add your handling code here:
+         btnWithdraw.setBackground(new java.awt.Color(0, 150, 220));
+    btnWithdraw.setForeground(java.awt.Color.WHITE);
+    btnWithdraw.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    }//GEN-LAST:event_btnWithdrawMouseEntered
+
+    private void btnWithdrawMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnWithdrawMouseExited
+        // TODO add your handling code here:
+        btnWithdraw.setBackground(java.awt.Color.WHITE);
+    btnWithdraw.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btnWithdrawMouseExited
+
+    private void btnFastCashMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFastCashMouseEntered
+        // TODO add your handling code here:
+        
+    btnFastCash.setBackground(new java.awt.Color(255, 180, 0));
+    btnFastCash.setForeground(java.awt.Color.WHITE);
+    btnFastCash.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    
+    }//GEN-LAST:event_btnFastCashMouseEntered
+
+    private void btnFastCashMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFastCashMouseExited
+        // TODO add your handling code here:
+        
+    btnFastCash.setBackground(java.awt.Color.WHITE);
+    btnFastCash.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btnFastCashMouseExited
+
+    private void btnCheckBalanceMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckBalanceMouseEntered
+        // TODO add your handling code here:
+        btnCheckBalance.setBackground(new java.awt.Color(120, 80, 200));
+    btnCheckBalance.setForeground(java.awt.Color.WHITE);
+    btnCheckBalance.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    }//GEN-LAST:event_btnCheckBalanceMouseEntered
+
+    private void btnCheckBalanceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckBalanceMouseExited
+        // TODO add your handling code here:
+         btnCheckBalance.setBackground(java.awt.Color.WHITE);
+    btnCheckBalance.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btnCheckBalanceMouseExited
+
+    private void btnTransactionHistoryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransactionHistoryMouseEntered
+        // TODO add your handling code here:
+         btnTransactionHistory.setBackground(
+        new java.awt.Color(0, 150, 200)
+    );
+
+    btnTransactionHistory.setForeground(
+        java.awt.Color.WHITE
+    );
+
+    btnTransactionHistory.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    }//GEN-LAST:event_btnTransactionHistoryMouseEntered
+
+    private void btnTransactionHistoryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransactionHistoryMouseExited
+        // TODO add your handling code here:
+         btnTransactionHistory.setBackground(java.awt.Color.WHITE);
+    btnTransactionHistory.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btnTransactionHistoryMouseExited
+
+    private void btnChangePinMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChangePinMouseEntered
+        // TODO add your handling code here:
+         btnChangePin.setBackground(
+        new java.awt.Color(150, 80, 200)
+    );
+
+    btnChangePin.setForeground(
+        java.awt.Color.WHITE
+    );
+
+    btnChangePin.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    }//GEN-LAST:event_btnChangePinMouseEntered
+
+    private void btnChangePinMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChangePinMouseExited
+        // TODO add your handling code here:
+        btnChangePin.setBackground(java.awt.Color.WHITE);
+    btnChangePin.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btnChangePinMouseExited
+
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        // TODO add your handling code here:
+        btnExit.setBackground(new java.awt.Color(180, 0, 0));
+    btnExit.setForeground(java.awt.Color.WHITE);
+
+    btnExit.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        // TODO add your handling code here:
+        
+    btnExit.setBackground(java.awt.Color.WHITE);
+    btnExit.setForeground(java.awt.Color.BLACK);
+
+    btnExit.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR)
+    );
+    }//GEN-LAST:event_btnExitMouseExited
 
     /**
      * @param args the command line arguments
@@ -436,23 +704,24 @@ this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChangePIN;
+    private javax.swing.JButton btnChangePin;
     private javax.swing.JButton btnCheckBalance;
     private javax.swing.JButton btnDeposit;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnFasrCash;
-    private javax.swing.JButton btnTransactionHistori;
+    private javax.swing.JButton btnFastCash;
+    private javax.swing.JButton btnTransactionHistory;
     private javax.swing.JButton btnWithdraw;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblATMTitle;
     private javax.swing.JLabel lblBalance;
     private javax.swing.JLabel lblBalanceTitle;
     private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblLoading;
     private javax.swing.JLabel lblSubtitle;
     private javax.swing.JLabel lblTime;
     private javax.swing.JPanel pnlBalance;
+    private javax.swing.JPanel pnlButtons;
     // End of variables declaration//GEN-END:variables
 }
