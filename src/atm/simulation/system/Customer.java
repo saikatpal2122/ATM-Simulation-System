@@ -6,14 +6,14 @@ public class Customer {
     private String phoneNumber;
     private String address;
 
-   
+    
     public Customer(String customerName, String phoneNumber, String address) {
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
-   
+    
     public String getCustomerName() {
         return customerName;
     }
@@ -26,26 +26,30 @@ public class Customer {
         return address;
     }
 
+    
     public void setCustomerName(String customerName) {
-        if (customerName != null && !customerName.trim().isEmpty()) {
+        if (customerName != null && !customerName.isEmpty()) {
             this.customerName = customerName;
         }
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+        if (phoneNumber != null && !phoneNumber.isEmpty()) {
             this.phoneNumber = phoneNumber;
         }
     }
 
     public void setAddress(String address) {
-        if (address != null && !address.trim().isEmpty()) {
+        if (address != null && !address.isEmpty()) {
             this.address = address;
         }
     }
 
    
-    public void updateCustomerInfo(String customerName, String phoneNumber, String address) {
+    public void updateCustomerInfo(String customerName,
+                                   String phoneNumber,
+                                   String address) {
+
         setCustomerName(customerName);
         setPhoneNumber(phoneNumber);
         setAddress(address);
@@ -53,20 +57,18 @@ public class Customer {
         System.out.println("Customer information updated successfully.");
     }
 
+    
     public void displayCustomerInfo() {
-        System.out.println("===== Customer Information =====");
+        System.out.println("\n--- Customer Information ---");
         System.out.println("Name    : " + customerName);
         System.out.println("Phone   : " + phoneNumber);
         System.out.println("Address : " + address);
-        System.out.println("================================");
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "customerName='" + customerName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "Customer Name : " + customerName +
+               "\nPhone Number : " + phoneNumber +
+               "\nAddress      : " + address;
     }
 }
