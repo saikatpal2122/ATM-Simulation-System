@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -200,10 +200,23 @@ public class DepositForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
-        // TODO add your handling code here:
+        
     try {
 
-        double amount = Double.parseDouble(txtAmount.getText());
+
+            // Get amount from text field
+            String amountText = txtAmount.getText().trim();
+
+            // Check empty field
+            if (amountText.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Please enter an amount."
+                );
+                txtAmount.requestFocus();
+                return;
+            }
+    double amount = Double.parseDouble(txtAmount.getText());
 
         if (amount <= 0) {
 
@@ -241,59 +254,26 @@ public class DepositForm extends javax.swing.JFrame {
             // Deposit
             atm.deposit(amount);
 
-            // Save account
-            fileManager.saveAccount(account);
+    txtAmount.setText("");
+txtAmount.requestFocus();
+} catch (NumberFormatException e) {
 
-            // Save transaction history
-            DateTimeFormatter dtf =
-                    DateTimeFormatter.ofPattern(
-                            "dd-MM-yyyy hh:mm a"
-                    );
+    JOptionPane.showMessageDialog(this, "Please enter numbers only.");
+txtAmount.requestFocus();
 
-            String history = String.format(
-                    "%-22s %-12s Tk %.2f",
-                    dtf.format(LocalDateTime.now()),
-                    "Deposit",
-                    amount
-            );
+        } catch (Exception e) {
 
-            fileManager.saveHistory(history);
-
-            // Success message
             JOptionPane.showMessageDialog(
                     this,
-                    "✓ Deposit Successful!\n\n"
-                    + "Amount: Tk "
-                    + String.format("%.2f", amount)
-                    + "\n\n"
-                    + "Remaining Balance: Tk "
-                    + String.format("%.2f", account.getBalance()),
-                    "Deposit Successful",
-                    JOptionPane.INFORMATION_MESSAGE
+                    "Deposit failed: " + e.getMessage()
             );
-
-            txtAmount.setText("");
-            txtAmount.requestFocus();
-        });
-
-        timer.setRepeats(false);
-        timer.start();
-
-    } catch (NumberFormatException e) {
-
-        JOptionPane.showMessageDialog(
-                this,
-                "Please enter numbers only.",
-                "Invalid Amount",
-                JOptionPane.WARNING_MESSAGE
-        );
-    }
+}
          
    
     }//GEN-LAST:event_btnDepositActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+
         DashboardForm dashboard = new DashboardForm(atm, account, fileManager);
         dashboard.setVisible(true);
         this.dispose();
@@ -361,7 +341,31 @@ public class DepositForm extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+         try {
+            for (javax.swing.UIManager.LookAndFeelInfo info
+                    : javax.swing.UIManager
+                            .getInstalledLookAndFeels()) {
+
+                if ("Nimbus".equals(info.getName())) {
+
+                    javax.swing.UIManager.setLookAndFeel(
+                            info.getClassName()
+                    );
+
+                    break;
+                }
+            }
+
+        } catch (Exception ex) {
+
+            java.util.logging.Logger.getLogger(
+                    DepositForm.class.getName()
+            ).log(
+                    java.util.logging.Level.SEVERE,
+                    null,
+                    ex
+            );
+        }//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
