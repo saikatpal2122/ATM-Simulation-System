@@ -5,6 +5,7 @@
  */
 package atm.simulation.system;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -20,6 +21,8 @@ private FileManager fileManager;
     public TransactionHistoryForm(ATM atm, Account account, FileManager fileManager) {
         initComponents();
         
+        
+        
     this.atm = atm;
     this.account = account;
     this.fileManager = fileManager;
@@ -29,6 +32,38 @@ private FileManager fileManager;
 
     setLocationRelativeTo(null);
     setResizable(false);
+    
+    
+     txtHistory.setEditable(false);
+
+    txtHistory.setFont(
+        new java.awt.Font(
+            "Monospaced",
+            java.awt.Font.PLAIN,
+            14
+        )
+    );
+
+    txtHistory.setBackground(
+        new java.awt.Color(248, 252, 255)
+    );
+
+    txtHistory.setForeground(
+        new java.awt.Color(20, 60, 80)
+    );
+
+    txtHistory.setBorder(
+        javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(0, 150, 136),
+                2
+            ),
+            javax.swing.BorderFactory.createEmptyBorder(
+                10, 10, 10, 10
+            )
+        )
+    );
+
     }
 
     /**
@@ -44,6 +79,11 @@ private FileManager fileManager;
         txtHistory = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnClearHistory = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,13 +95,75 @@ private FileManager fileManager;
         jScrollPane1.setViewportView(txtHistory);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 51));
         jLabel1.setText("Transaction History");
 
         btnBack.setBackground(new java.awt.Color(255, 0, 0));
-        btnBack.setText("BAck");
+        btnBack.setText("Back");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBackMouseExited(evt);
+            }
+        });
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel2.setText("DIGITAL ATM");
+
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel3.setText("Secure Banking System");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)))
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3))
+        );
+
+        btnClearHistory.setText("Clear History");
+        btnClearHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnClearHistoryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnClearHistoryMouseExited(evt);
+            }
+        });
+        btnClearHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearHistoryActionPerformed(evt);
             }
         });
 
@@ -72,28 +174,36 @@ private FileManager fileManager;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(122, 122, 122)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 175, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(161, 161, 161))
+                        .addGap(176, 176, 176)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addComponent(btnClearHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClearHistory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -108,6 +218,70 @@ private FileManager fileManager;
 
     this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+        // TODO add your handling code here:
+         btnBack.setBackground(new java.awt.Color(180, 0, 0));
+    btnBack.setForeground(java.awt.Color.WHITE);
+
+    btnBack.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+    }//GEN-LAST:event_btnBackMouseEntered
+
+    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
+        // TODO add your handling code here:
+         btnBack.setBackground(java.awt.Color.RED);
+    btnBack.setForeground(java.awt.Color.WHITE);
+    }//GEN-LAST:event_btnBackMouseExited
+
+    private void btnClearHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearHistoryActionPerformed
+        // TODO add your handling code here:
+       int choice = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to clear all transaction history?",
+            "Clear Transaction History",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+    );
+
+    if (choice == JOptionPane.YES_OPTION) {
+
+        fileManager.clearHistory();
+
+        txtHistory.setText("");
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Transaction history cleared successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+    
+    }//GEN-LAST:event_btnClearHistoryActionPerformed
+
+    private void btnClearHistoryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearHistoryMouseEntered
+        // TODO add your handling code here:
+        btnClearHistory.setBackground(new java.awt.Color(0, 180, 100));
+    btnClearHistory.setForeground(java.awt.Color.WHITE);
+
+    btnClearHistory.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+    );
+        
+    }//GEN-LAST:event_btnClearHistoryMouseEntered
+
+    private void btnClearHistoryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearHistoryMouseExited
+        // TODO add your handling code here:
+          btnClearHistory.setBackground(java.awt.Color.WHITE);
+    btnClearHistory.setForeground(java.awt.Color.BLACK);
+
+    btnClearHistory.setCursor(
+        new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR)
+    );
+
+    }//GEN-LAST:event_btnClearHistoryMouseExited
 
     /**
      * @param args the command line arguments
@@ -157,7 +331,12 @@ private FileManager fileManager;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnClearHistory;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtHistory;
     // End of variables declaration//GEN-END:variables
