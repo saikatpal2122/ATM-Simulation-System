@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -112,9 +112,22 @@ public class DepositForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
-        // TODO add your handling code here:
+        
     try {
 
+
+            // Get amount from text field
+            String amountText = txtAmount.getText().trim();
+
+            // Check empty field
+            if (amountText.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Please enter an amount."
+                );
+                txtAmount.requestFocus();
+                return;
+            }
     double amount = Double.parseDouble(txtAmount.getText());
 
     if (amount <= 0) {
@@ -143,18 +156,25 @@ fileManager.saveHistory(history);
     JOptionPane.showMessageDialog(this, "Deposit Successful!");
 
     txtAmount.setText("");
-
+txtAmount.requestFocus();
 } catch (NumberFormatException e) {
 
     JOptionPane.showMessageDialog(this, "Please enter numbers only.");
+txtAmount.requestFocus();
 
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Deposit failed: " + e.getMessage()
+            );
 }
          
    
     }//GEN-LAST:event_btnDepositActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+
         DashboardForm dashboard = new DashboardForm(atm, account, fileManager);
         dashboard.setVisible(true);
         this.dispose();
@@ -165,7 +185,31 @@ fileManager.saveHistory(history);
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+         try {
+            for (javax.swing.UIManager.LookAndFeelInfo info
+                    : javax.swing.UIManager
+                            .getInstalledLookAndFeels()) {
+
+                if ("Nimbus".equals(info.getName())) {
+
+                    javax.swing.UIManager.setLookAndFeel(
+                            info.getClassName()
+                    );
+
+                    break;
+                }
+            }
+
+        } catch (Exception ex) {
+
+            java.util.logging.Logger.getLogger(
+                    DepositForm.class.getName()
+            ).log(
+                    java.util.logging.Level.SEVERE,
+                    null,
+                    ex
+            );
+        }//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
