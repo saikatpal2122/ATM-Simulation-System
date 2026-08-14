@@ -204,7 +204,7 @@ txtConfirmPin.setBorder(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,7 +213,7 @@ txtConfirmPin.setBorder(
         );
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setText(" Secure & Protected");
+        jLabel8.setText("Secure & protected");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,54 +250,125 @@ txtConfirmPin.setBorder(
 
     private void btnChangePinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePinActionPerformed
         // TODO add your handling code here:
-        try {
+         String oldPin = String.valueOf(txtOldPin.getPassword());
+    String newPin = String.valueOf(txtNewPin.getPassword());
+    String confirmPin = String.valueOf(txtConfirmPin.getPassword());
 
-        int oldPin = Integer.parseInt(String.valueOf(txtOldPin.getPassword()));
-        int newPin = Integer.parseInt(String.valueOf(txtNewPin.getPassword()));
-        int confirmPin = Integer.parseInt(String.valueOf(txtConfirmPin.getPassword()));
+    // Empty check
+    if (oldPin.isEmpty() || newPin.isEmpty() || confirmPin.isEmpty()) {
 
-        if (oldPin != account.getPin()) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Please fill in all PIN fields.",
+                "Invalid Input",
+                JOptionPane.WARNING_MESSAGE
+        );
 
-            JOptionPane.showMessageDialog(this, "Old PIN is incorrect!");
+        return;
+    }
 
-            txtOldPin.setText("");
-            txtNewPin.setText("");
-            txtConfirmPin.setText("");
+    // Old PIN check
+    if (!oldPin.equals(String.valueOf(account.getPin()))) {
 
-            txtOldPin.requestFocus();
+        JOptionPane.showMessageDialog(
+                this,
+                "Incorrect Old PIN!",
+                "Change PIN",
+                JOptionPane.WARNING_MESSAGE
+        );
 
-            return;
-        }
+        return;
+    }
 
-        if (newPin != confirmPin) {
+    // New PIN length
+    if (newPin.length() != 4) {
 
-            JOptionPane.showMessageDialog(this, "New PIN and Confirm PIN do not match!");
+        JOptionPane.showMessageDialog(
+                this,
+                "New PIN must contain exactly 4 digits.",
+                "Invalid PIN",
+                JOptionPane.WARNING_MESSAGE
+        );
 
-            txtNewPin.setText("");
-            txtConfirmPin.setText("");
+        return;
+    }
 
-            txtNewPin.requestFocus();
+    // Confirm PIN
+    if (!newPin.equals(confirmPin)) {
 
-            return;
-        }
+        JOptionPane.showMessageDialog(
+                this,
+                "New PIN and Confirm PIN do not match.",
+                "Invalid PIN",
+                JOptionPane.WARNING_MESSAGE
+        );
 
-        account.setPin(newPin);
+        return;
+    }
 
-        fileManager.saveAccount(account);
-
-        JOptionPane.showMessageDialog(this, "PIN Changed Successfully!");
-
-        DashboardForm dashboard = new DashboardForm(atm, account, fileManager);
-        dashboard.setVisible(true);
-        this.dispose();
-
+    // Make sure PIN contains digits only
+    try {
+        Integer.parseInt(newPin);
     } catch (NumberFormatException e) {
 
-        JOptionPane.showMessageDialog(this, "Please enter numbers only.");
+        JOptionPane.showMessageDialog(
+                this,
+                "PIN must contain numbers only.",
+                "Invalid PIN",
+                JOptionPane.WARNING_MESSAGE
+        );
 
-    }  
+        return;
+    }
 
+    // =========================
+    // Loading
+    // =========================
 
+    JOptionPane loadingPane = new JOptionPane(
+            "Loading...",
+            JOptionPane.INFORMATION_MESSAGE,
+            JOptionPane.DEFAULT_OPTION,
+            null,
+            new Object[]{},
+            null
+    );
+
+    javax.swing.JDialog loadingDialog =
+            loadingPane.createDialog(this, "Digital ATM");
+
+    loadingDialog.setModal(false);
+    loadingDialog.setVisible(true);
+
+    // 1 second loading
+    javax.swing.Timer timer =
+            new javax.swing.Timer(1000, e -> {
+
+        loadingDialog.dispose();
+
+        // Change PIN
+        account.setPin(Integer.parseInt(newPin));
+
+        // Save updated account
+        fileManager.saveAccount(account);
+
+        // Success
+        JOptionPane.showMessageDialog(
+                this,
+                "✓ PIN Changed Successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Clear fields
+        txtOldPin.setText("");
+        txtNewPin.setText("");
+        txtConfirmPin.setText("");
+
+    });
+
+    timer.setRepeats(false);
+    timer.start();
     }//GEN-LAST:event_btnChangePinActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

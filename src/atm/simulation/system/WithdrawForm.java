@@ -27,7 +27,7 @@ private FileManager fileManager;
          this.account = account;
          this.fileManager = fileManager;
          
-    setSize(500, 350);
+    setSize(390, 350);
     setLocationRelativeTo(null);
     setResizable(false);
     }
@@ -41,47 +41,168 @@ private FileManager fileManager;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
-        btnBack = new javax.swing.JButton();
         btnWithdraw = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Withdraw Money");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 140, -1));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Amount  :");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, 20));
 
         txtAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAmountActionPerformed(evt);
             }
         });
-        getContentPane().add(txtAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 100, 30));
 
-        btnBack.setBackground(new java.awt.Color(255, 0, 0));
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+        btnWithdraw.setText("Withdraw");
+        btnWithdraw.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnWithdrawMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnWithdrawMouseExited(evt);
             }
         });
-        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 70, -1));
-
-        btnWithdraw.setBackground(new java.awt.Color(0, 255, 51));
-        btnWithdraw.setText("Withdraw");
         btnWithdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnWithdrawActionPerformed(evt);
             }
         });
-        getContentPane().add(btnWithdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 80, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel1.setText("Withdraw Money");
+
+        btnBack.setText("Back");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBackMouseExited(evt);
+            }
+        });
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtAmount)
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnWithdraw)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(48, 48, 48))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(btnWithdraw))
+                .addGap(19, 19, 19))
+        );
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel3.setText("DIGITAL ATM");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N
+
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel5.setText("Secure Banking System");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)))
+                .addGap(71, 71, 71))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -92,89 +213,133 @@ private FileManager fileManager;
   try {
 
         double amount = Double.parseDouble(txtAmount.getText());
-        
+
+        // Minimum withdrawal
         if (amount < 500) {
 
-    JOptionPane.showMessageDialog(this,
-            "Minimum withdrawal amount is ৳500.");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Minimum withdrawal amount is Tk 500.",
+                    "Invalid Amount",
+                    JOptionPane.WARNING_MESSAGE
+            );
 
-    txtAmount.setText("");
-    txtAmount.requestFocus();
-
-    return;
-}
-
-if (amount % 500 != 0) {
-
-    JOptionPane.showMessageDialog(this,
-            "Please enter an amount in multiples of ৳500.");
-
-    txtAmount.setText("");
-    txtAmount.requestFocus();
-
-    return;
-}
-
-        if (amount <= 0) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Please enter a valid amount.");
-
-            txtAmount.requestFocus();
             return;
         }
-        
+
+        // Maximum withdrawal
         if (amount > 20000) {
 
-    JOptionPane.showMessageDialog(this,
-            "Maximum withdrawal limit is ৳20,000 per transaction.");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Maximum withdrawal amount is Tk 20,000.",
+                    "Invalid Amount",
+                    JOptionPane.WARNING_MESSAGE
+            );
 
-    txtAmount.setText("");
-    txtAmount.requestFocus();
+            return;
+        }
 
-    return;
-}
-
+        // Balance check BEFORE loading
         if (amount > account.getBalance()) {
 
-            JOptionPane.showMessageDialog(this,
-                    "Insufficient Balance!");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Insufficient Balance!\n\n"
+                    + "Available Balance: Tk "
+                    + String.format("%.2f", account.getBalance()),
+                    "Insufficient Balance",
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            return;
+        }
+
+        // =========================
+        // Loading Dialog
+        // =========================
+
+        JOptionPane loadingPane = new JOptionPane(
+                "Loading...",
+                JOptionPane.INFORMATION_MESSAGE,
+                JOptionPane.DEFAULT_OPTION,
+                null,
+                new Object[]{},
+                null
+        );
+
+        javax.swing.JDialog loadingDialog =
+                loadingPane.createDialog(this, "Digital ATM");
+
+        loadingDialog.setModal(false);
+        loadingDialog.setVisible(true);
+
+        // Wait 1 second
+        javax.swing.Timer timer =
+                new javax.swing.Timer(1000, e -> {
+
+            loadingDialog.dispose();
+
+            // =========================
+            // Withdraw
+            // =========================
+
+            atm.withdraw(amount);
+
+            // Save updated account
+            fileManager.saveAccount(account);
+
+            // =========================
+            // Save History
+            // =========================
+
+            DateTimeFormatter dtf =
+                    DateTimeFormatter.ofPattern(
+                            "dd-MM-yyyy hh:mm a"
+                    );
+
+            String history = String.format(
+                    "%-22s %-12s Tk %.2f",
+                    dtf.format(LocalDateTime.now()),
+                    "Withdraw",
+                    amount
+            );
+
+            fileManager.saveHistory(history);
+
+            // =========================
+            // Success Message
+            // =========================
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "✓ Withdrawal Successful!\n\n"
+                    + "Amount: Tk "
+                    + String.format("%.2f", amount)
+                    + "\n\n"
+                    + "Remaining Balance: Tk "
+                    + String.format("%.2f", account.getBalance()),
+                    "Withdrawal Successful",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
 
             txtAmount.setText("");
             txtAmount.requestFocus();
-            return;
-        }
 
-        atm.withdraw(amount);
+        });
 
-        fileManager.saveAccount(account);
-        
-        DateTimeFormatter dtf =
-        DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
-
-String history = String.format(
-        "%-22s %-12s Tk %.2f%n",
-        dtf.format(LocalDateTime.now()),
-        "Withdraw",
-        amount
-);
-
-fileManager.saveHistory(history);
-
-        JOptionPane.showMessageDialog(this,
-                "Withdraw Successful!");
-
-        txtAmount.setText("");
+        timer.setRepeats(false);
+        timer.start();
 
     } catch (NumberFormatException e) {
 
-        JOptionPane.showMessageDialog(this,
-                "Please enter numbers only.");
-
-        txtAmount.setText("");
-        txtAmount.requestFocus();
+        JOptionPane.showMessageDialog(
+                this,
+                "Please enter numbers only.",
+                "Invalid Amount",
+                JOptionPane.WARNING_MESSAGE
+        );
     }
-
 
 
     }//GEN-LAST:event_btnWithdrawActionPerformed
@@ -189,6 +354,75 @@ fileManager.saveHistory(history);
     private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAmountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAmountActionPerformed
+
+    private void btnWithdrawMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnWithdrawMouseEntered
+        // TODO add your handling code here:
+         btnWithdraw.setBackground(
+        new java.awt.Color(0, 180, 100)
+    );
+
+    btnWithdraw.setForeground(
+        java.awt.Color.WHITE
+    );
+
+    btnWithdraw.setCursor(
+        new java.awt.Cursor(
+            java.awt.Cursor.HAND_CURSOR
+        )
+    );
+    }//GEN-LAST:event_btnWithdrawMouseEntered
+
+    private void btnWithdrawMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnWithdrawMouseExited
+        // TODO add your handling code here:
+         btnWithdraw.setBackground(
+        java.awt.Color.WHITE
+    );
+
+    btnWithdraw.setForeground(
+        java.awt.Color.BLACK
+    );
+
+    btnWithdraw.setCursor(
+        new java.awt.Cursor(
+            java.awt.Cursor.DEFAULT_CURSOR
+        )
+    );
+    }//GEN-LAST:event_btnWithdrawMouseExited
+
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+        // TODO add your handling code here:
+        btnBack.setBackground(
+        new java.awt.Color(220, 50, 50)
+    );
+
+    btnBack.setForeground(
+        java.awt.Color.WHITE
+    );
+
+    btnBack.setCursor(
+        new java.awt.Cursor(
+            java.awt.Cursor.HAND_CURSOR
+        )
+    );
+    }//GEN-LAST:event_btnBackMouseEntered
+
+    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
+        // TODO add your handling code here:
+         btnBack.setBackground(
+        java.awt.Color.WHITE
+    );
+
+    btnBack.setForeground(
+        java.awt.Color.BLACK
+    );
+
+    btnBack.setCursor(
+        new java.awt.Cursor(
+            java.awt.Cursor.DEFAULT_CURSOR
+        )
+    );
+        
+    }//GEN-LAST:event_btnBackMouseExited
 
     /**
      * @param args the command line arguments
@@ -233,8 +467,14 @@ fileManager.saveHistory(history);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnWithdraw;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtAmount;
     // End of variables declaration//GEN-END:variables
 }
