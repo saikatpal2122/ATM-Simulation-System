@@ -23,7 +23,7 @@ public class Transaction {
 
     if (amount > 0) {
 
-        record += "\nAmount   : + amount";
+        record += "\nAmount   :" + amount;
 }
    
         record += "\nDate    : " + dateTime +
