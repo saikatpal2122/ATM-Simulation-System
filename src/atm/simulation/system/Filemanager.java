@@ -76,6 +76,22 @@ public class FileManager {
         }
 
     }
+    
+ public void clearHistory() {
+
+    try {
+
+        FileWriter fw = new FileWriter("history.txt", false);
+        fw.close();
+
+        System.out.println("History Cleared Successfully.");
+
+    } catch (Exception e) {
+
+        System.out.println("History Clear Error.");
+
+    }
+}
 
     
     public String loadHistory() {
