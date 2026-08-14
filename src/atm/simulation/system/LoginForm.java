@@ -188,7 +188,9 @@ private void shakeLoginPanel() {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
+        lblTitle.setBackground(new java.awt.Color(204, 204, 204));
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(0, 102, 102));
         lblTitle.setText("DIGITAL ATM");
 
         pnlLogin.setBackground(new java.awt.Color(153, 153, 153));
@@ -301,6 +303,7 @@ private void shakeLoginPanel() {
         );
 
         lbl.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbl.setForeground(new java.awt.Color(0, 102, 102));
         lbl.setText("Secure Banking System");
 
         lblIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-atm-20.png")); // NOI18N

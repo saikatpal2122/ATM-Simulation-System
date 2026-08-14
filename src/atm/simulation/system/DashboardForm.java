@@ -500,21 +500,25 @@ public class DashboardForm extends javax.swing.JFrame {
     private void btnTransactionHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransactionHistoryActionPerformed
         // TODO add your handling code here:
          
-    showLoading();
+     lblLoading.setText("Loading...");
+    lblLoading.setVisible(true);
 
-    javax.swing.Timer timer = new javax.swing.Timer(800, e -> {
+    javax.swing.Timer timer = new javax.swing.Timer(1000, e -> {
 
         TransactionHistoryForm history =
-                new TransactionHistoryForm(atm, account, fileManager);
+                new TransactionHistoryForm(
+                        atm,
+                        account,
+                        fileManager
+                );
 
         history.setVisible(true);
+
         this.dispose();
     });
 
     timer.setRepeats(false);
     timer.start();
-
-    this.dispose();
     }//GEN-LAST:event_btnTransactionHistoryActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

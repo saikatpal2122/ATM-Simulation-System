@@ -129,11 +129,16 @@ public class DepositForm extends javax.swing.JFrame {
     DateTimeFormatter dtf =
         DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
 
-String history =
-        dtf.format(LocalDateTime.now())
-        + "   Deposit   ৳" + amount + "\n";
+String history = String.format(
+        "%-22s %-12s Tk %.2f%n",
+        dtf.format(LocalDateTime.now()),
+        "Deposit",
+        amount
+);
 
 fileManager.saveHistory(history);
+
+
 
     JOptionPane.showMessageDialog(this, "Deposit Successful!");
 
